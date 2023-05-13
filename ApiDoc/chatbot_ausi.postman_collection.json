@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "ef51a360-a002-4308-87fa-9c9df336df15",
+		"name": "chatbot_ausi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13861990"
+	},
+	"item": [
+		{
+			"name": "loginAdmin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"645f0df8a1c4a81d992fa4a3\",\r\n    \"password\":\"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/loginAdmin",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"loginAdmin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAnswer",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"645f0df8a1c4a81d992fa4a3\",\r\n    \"password\":\"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/getAnswer?question=hello",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"getAnswer"
+					],
+					"query": [
+						{
+							"key": "question",
+							"value": "hello"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getQuestionsForAnsweringByAdmin",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"645f0df8a1c4a81d992fa4a3\",\r\n    \"password\":\"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/getQuestions",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"getQuestions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addAnswerForAQuestionByAdmin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"qid\":\"645f162f8b2bc9ee75bf15bf\",\r\n    \"answer\":\"hello\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/addAnswer",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"addAnswer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
