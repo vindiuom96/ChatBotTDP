@@ -1,6 +1,7 @@
 import time
 from bson import ObjectId
 import Authentications.generateToken as jwt
+import CheckMatching
 import connection_mongo
 import updateCSV
 
@@ -26,8 +27,13 @@ def get_objects(objs):
 def login_admin(id , password):
     try:
         result = collection_admin.find_one({'_id': ObjectId(id)})
+        # print(result['password'])
         if result['password'] == password:
-            token = jwt.generate_token_super(password=password , id=id)
+            # print(result['password'])
+            # print(id)
+            # token = jwt.generate_token_super(password=password , id=id)
+            # print(token)
+            token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMzQ1Njc4IiwiaWQiOiI2NDVmMGRmOGExYzRhODFkOTkyZmE0YTMiLCJleHBpcmUiOjE3MjAwNDU0Mzl9.Le5WWJC9-ydQOdKGOeJE6zrVxtxftFwl9yYBOI1WVJc"
             return {
                 "state": True,
                 "message": "success",
@@ -41,16 +47,19 @@ def login_admin(id , password):
     except:
         return {
             "state": False,
-            "message": "error"
+            "message": "error mongo"
         }
 
 
 def insert_question(question):
     try:
-        result = collection_queston.find({'question': question})
-        result_list = list(result)
-        print(len(result_list))
-        if len(result_list)>0:
+        results = collection_queston.find()
+        max_matching = 0
+        for result in results:
+            matching = CheckMatching.check_matching_value(result['question'], question)
+            if matching >= max_matching:
+                max_matching = matching
+        if max_matching >= 0.7:
             return {
                 "state": True,
                 "message": "No matching answer",
@@ -99,6 +108,19 @@ def add_answer(qid ,answer):
         question = question['question']
         print(question)
         updateCSV.add_new_question(question=question, answer=answer)
+        collection_queston.delete_one({'_id': ObjectId(qid)})
+        return {
+            "state": True,
+            "message": "success"
+        }
+    except:
+        return {
+            "state": False,
+            "message": "error"
+        }
+
+def reject_question(qid):
+    try:
         collection_queston.delete_one({'_id': ObjectId(qid)})
         return {
             "state": True,
