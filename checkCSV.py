@@ -4,9 +4,8 @@ import format_csv
 import getAnswer
 from mongoOperations import insert_question
 
-df1 = format_csv.format_csv()
-
 def check_answers(text):
+    df1 = format_csv.format_csv()
     max_matching = 0
     context = ""
     max_context = ""
@@ -81,7 +80,5 @@ def get_answer_by_model(text):
     return res
 
 def get_dataframe():
+    df1 = format_csv.format_csv()
     return df1
-
-
-
